@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'org.owasp.dependencycheck' version '6.2.2' // Install OWASP Dependency Check
 }
 
 group = 'com.example.sample'
@@ -14,9 +15,24 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+
+	// This version of the library has a serious vulnerability
+	// Uncomment the line below to test the behavior of the dependency check tool
+	// implementation 'org.apache.shiro:shiro-core:1.3.0'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+// check task will depend on dependencyCheckAnalyze task
+// (= Every build will eventually start to run an analysis)
+check.dependsOn dependencyCheckAnalyze
+
+// Dependency check configuration
+dependencyCheck {
+	failOnError = true // Build will fail if the analysis fails
+	failBuildOnCVSS = 7 // Build will fail if the CVSS of the detected issue is >= this value
 }
