@@ -1,8 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.2'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
-	id 'org.owasp.dependencycheck' version '6.2.2' // Install OWASP Dependency Check
+	id 'org.owasp.dependencycheck' version '7.2.1' // Install OWASP Dependency Check
 }
 
 group = 'com.example.sample'
@@ -34,5 +34,5 @@ check.dependsOn dependencyCheckAnalyze
 // Dependency check configuration
 dependencyCheck {
 	failOnError = true // Build will fail if the analysis fails
-	failBuildOnCVSS = 7 // Build will fail if the CVSS of the detected issue is >= this value
+	failBuildOnCVSS = 8 // Build will fail if the CVSS of the detected issue is >= this value
 }
